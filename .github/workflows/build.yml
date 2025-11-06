@@ -1,4 +1,4 @@
-name: Xiaomi Pad 6s Pro postmarketOS
+name: Xiaomi Pad 5 Pro 5G postmarketOS
 on:
   push: # Build when push
   workflow_dispatch:
@@ -40,177 +40,177 @@ jobs:
           echo -e '\n\n' | pmbootstrap init || true
           cd ~/.local/var/pmbootstrap/cache_git/pmaports
           git remote
-          git remote add sheng https://gitlab.postmarketos.org/alghiffaryfa19/pmaports.git 
-          git fetch sheng
-          git reset --hard sheng
+          git remote add xiaomi-enuma https://gitlab.postmarketos.org/wrobelda/pmaports.git 
+          git fetch xiaomi-enuma
+          git reset --hard xiaomi-enuma
 
 
       # - name: Install zstd in chroot
       #   run: |
       #     pmbootstrap chroot -- apk add zstd
 
-      - name: Build the xiaomi-sheng without DE
+      - name: Build the xiaomi-enuma without DE
         run: |
-           cp xiaomi-sheng.cfg ~/.config/pmbootstrap_v3.cfg
-           pmbootstrap checksum device-xiaomi-sheng
-           pmbootstrap checksum firmware-xiaomi-sheng
-           pmbootstrap checksum linux-postmarketos-qcom-sm8550
-           cat ~/.local/var/pmbootstrap/cache_git/pmaports/device/testing/linux-postmarketos-qcom-sm8550/APKBUILD
+           cp xiaomi-enuma.cfg ~/.config/pmbootstrap_v3.cfg
+           pmbootstrap checksum device-xiaomi-enuma
+           pmbootstrap checksum firmware-xiaomi-enuma
+           pmbootstrap checksum linux-postmarketos-qcom-sm8250
+           cat ~/.local/var/pmbootstrap/cache_git/pmaports/device/testing/linux-postmarketos-qcom-sm8250/APKBUILD
            pmbootstrap chroot -- apk add zstd
            pmbootstrap install --password 147147
            pmbootstrap export
-           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-sheng.img
-           cp /tmp/postmarketOS-export/xiaomi-sheng.img out/rootfs-xiaomi-sheng-none.img
+           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-enuma.img
+           cp /tmp/postmarketOS-export/xiaomi-enuma.img out/rootfs-xiaomi-enuma-none.img
 
       - name: Show log
         if: always()
         run: |
           cat /home/runner/.local/var/pmbootstrap/log.txt
 
-      - name: Breakpoint if tests failed for xiaomi-sheng without DE
+      - name: Breakpoint if tests failed for xiaomi-enuma without DE
         if: failure()
         uses: namespacelabs/breakpoint-action@v0
         with:
           duration: 30m
           authorized-users: alghiffaryfa19
       
-      - name: Upload artifacts xiaomi-sheng without DE
+      - name: Upload artifacts xiaomi-enuma without DE
         uses: actions/upload-artifact@v4
         with:
-           name: xiaomi-sheng-none_${{ env.CURRENT_DATE }}
+           name: xiaomi-enuma-none_${{ env.CURRENT_DATE }}
            path: out/*.img*
            retention-days: 7
 
-      - name: Build the xiaomi-sheng with KDE Plasma Desktop
+      - name: Build the xiaomi-enuma with KDE Plasma Desktop
         run: |
            yes | pmbootstrap zap
            rm -r out/*
            pmbootstrap install --password 147147 --add postmarketos-ui-plasma-desktop
            cat /home/runner/.local/var/pmbootstrap/log.txt
            pmbootstrap export
-           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-sheng.img
-           cp /tmp/postmarketOS-export/xiaomi-sheng.img out/rootfs-xiaomi-sheng-plasma.img
+           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-enuma.img
+           cp /tmp/postmarketOS-export/xiaomi-enuma.img out/rootfs-xiaomi-enuma-plasma.img
 
-      - name: Breakpoint if tests failed for xiaomi-sheng with KDE Plasma Desktop
+      - name: Breakpoint if tests failed for xiaomi-enuma with KDE Plasma Desktop
         if: failure()
         uses: namespacelabs/breakpoint-action@v0
         with:
           duration: 30m
           authorized-users: alghiffaryfa19
       
-      - name: Upload artifacts xiaomi-sheng with KDE Plasma Desktop
+      - name: Upload artifacts xiaomi-enuma with KDE Plasma Desktop
         uses: actions/upload-artifact@v4
         with:
-           name: xiaomi-sheng-plasma_${{ env.CURRENT_DATE }}
+           name: xiaomi-enuma-plasma_${{ env.CURRENT_DATE }}
            path: out/*.img*
            retention-days: 7
 
 
-      - name: Build the xiaomi-sheng with KDE Plasma Mobile
+      - name: Build the xiaomi-enuma with KDE Plasma Mobile
         run: |
            yes | pmbootstrap zap
            rm -r out/*
            pmbootstrap install --password 147147 --add postmarketos-ui-plasma-mobile
            cat /home/runner/.local/var/pmbootstrap/log.txt
            pmbootstrap export
-           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-sheng.img
-           cp /tmp/postmarketOS-export/xiaomi-sheng.img out/rootfs-xiaomi-sheng-plasma-mobile.img
+           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-enuma.img
+           cp /tmp/postmarketOS-export/xiaomi-enuma.img out/rootfs-xiaomi-enuma-plasma-mobile.img
 
-      - name: Breakpoint if tests failed for xiaomi-sheng with KDE Plasma Mobile
+      - name: Breakpoint if tests failed for xiaomi-enuma with KDE Plasma Mobile
         if: failure()
         uses: namespacelabs/breakpoint-action@v0
         with:
           duration: 30m
           authorized-users: alghiffaryfa19
       
-      - name: Upload artifacts xiaomi-sheng with KDE Plasma Mobile
+      - name: Upload artifacts xiaomi-enuma with KDE Plasma Mobile
         uses: actions/upload-artifact@v4
         with:
-           name: xiaomi-sheng-plasma_mobile_${{ env.CURRENT_DATE }}
+           name: xiaomi-enuma-plasma_mobile_${{ env.CURRENT_DATE }}
            path: out/*.img*
            retention-days: 7
 
-      - name: Build the xiaomi-sheng with Lomiri
+      - name: Build the xiaomi-enuma with Lomiri
         run: |
            yes | pmbootstrap zap
            rm -r out/*
            pmbootstrap install --password 147147 --add postmarketos-ui-lomiri
            cat /home/runner/.local/var/pmbootstrap/log.txt
            pmbootstrap export
-           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-sheng.img
-           cp /tmp/postmarketOS-export/xiaomi-sheng.img out/rootfs-xiaomi-sheng-lomiri.img
+           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-enuma.img
+           cp /tmp/postmarketOS-export/xiaomi-enuma.img out/rootfs-xiaomi-enuma-lomiri.img
 
-      - name: Breakpoint if tests failed for xiaomi-sheng with Lomiri
+      - name: Breakpoint if tests failed for xiaomi-enuma with Lomiri
         if: failure()
         uses: namespacelabs/breakpoint-action@v0
         with:
           duration: 30m
           authorized-users: alghiffaryfa19
       
-      - name: Upload artifacts xiaomi-sheng with Lomiri
+      - name: Upload artifacts xiaomi-enuma with Lomiri
         uses: actions/upload-artifact@v4
         with:
-           name: xiaomi-sheng-lomiri_${{ env.CURRENT_DATE }}
+           name: xiaomi-enuma-lomiri_${{ env.CURRENT_DATE }}
            path: out/*.img*
            retention-days: 7
             
-      - name: Build the xiaomi-sheng with GNOME
+      - name: Build the xiaomi-enuma with GNOME
         run: |
            yes | pmbootstrap zap
            rm -r out/*
            pmbootstrap install --password 147147 --add postmarketos-ui-gnome
            pmbootstrap export
-           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-sheng.img
-           cp /tmp/postmarketOS-export/xiaomi-sheng.img out/rootfs-xiaomi-sheng-gnome.img
+           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-enuma.img
+           cp /tmp/postmarketOS-export/xiaomi-enuma.img out/rootfs-xiaomi-enuma-gnome.img
 
-      - name: Breakpoint if tests failed for xiaomi-sheng with GNOME
+      - name: Breakpoint if tests failed for xiaomi-enuma with GNOME
         if: failure()
         uses: namespacelabs/breakpoint-action@v0
         with:
           duration: 30m
           authorized-users: alghiffaryfa19
             
-      - name: Upload artifacts xiaomi-sheng with GNOME
+      - name: Upload artifacts xiaomi-enuma with GNOME
         uses: actions/upload-artifact@v4
         with:
-           name: xiaomi-sheng-gnome_${{ env.CURRENT_DATE }}
+           name: xiaomi-enuma-gnome_${{ env.CURRENT_DATE }}
            path: out/*.img*
            retention-days: 7
 
 
       
-      - name: Build the xiaomi-sheng with GNOME Mobile
+      - name: Build the xiaomi-enuma with GNOME Mobile
         run: |
            yes | pmbootstrap zap
            rm -r out/*
            pmbootstrap install --password 147147 --add postmarketos-ui-gnome-mobile
            pmbootstrap export
-           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-sheng.img
-           cp /tmp/postmarketOS-export/xiaomi-sheng.img out/rootfs-xiaomi-sheng-gnome-mobile.img
+           cp /tmp/postmarketOS-export/boot.img out/boot-xiaomi-enuma.img
+           cp /tmp/postmarketOS-export/xiaomi-enuma.img out/rootfs-xiaomi-enuma-gnome-mobile.img
 
-      - name: Breakpoint if tests failed for xiaomi-sheng with GNOME Mobile
+      - name: Breakpoint if tests failed for xiaomi-enuma with GNOME Mobile
         if: failure()
         uses: namespacelabs/breakpoint-action@v0
         with:
           duration: 30m
           authorized-users: alghiffaryfa19
             
-      - name: Upload artifacts xiaomi-sheng with GNOME Mobile
+      - name: Upload artifacts xiaomi-enuma with GNOME Mobile
         uses: actions/upload-artifact@v4
         with:
-           name: xiaomi-sheng-gnome-mobile_${{ env.CURRENT_DATE }}
+           name: xiaomi-enuma-gnome-mobile_${{ env.CURRENT_DATE }}
            path: out/*.img*
            retention-days: 7
                        
-      - name: Copy xiaomi-sheng kernel
+      - name: Copy xiaomi-enuma kernel
         run: |
            rm -r out/*
-           cp ~/.local/var/pmbootstrap/packages/edge/aarch64/linux-postmarketos-qcom-sm8550-*.apk out/
+           cp ~/.local/var/pmbootstrap/packages/edge/aarch64/linux-postmarketos-qcom-sm8250-*.apk out/
       
-      - name: Upload artifacts xiaomi-sheng kernel
+      - name: Upload artifacts xiaomi-enuma kernel
         uses: actions/upload-artifact@v4
         with:
-           name: xiaomi-sheng-kernel_${{ env.CURRENT_DATE }}
+           name: xiaomi-enuma-kernel_${{ env.CURRENT_DATE }}
            path: out/*.apk
            retention-days: 7
 
