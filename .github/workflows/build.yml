@@ -43,6 +43,7 @@ jobs:
           git remote add xiaomi-enuma https://gitlab.postmarketos.org/wrobelda/pmaports.git 
           git fetch xiaomi-enuma
           git reset --hard xiaomi-enuma
+          cp -r ~/.local/var/pmbootstrap/cache_git/pmaports/device/community/device-xiaomi-enuma ~/.local/var/pmbootstrap/cache_git/pmaports/device/testing
 
 
       # - name: Install zstd in chroot
